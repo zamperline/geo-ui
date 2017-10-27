@@ -31,8 +31,6 @@
     "primeng": "^4.2.2",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14",
-
-    // devDependencies - para publicar no heroku onde vai fazer o build automaticamente ao fazer git push
     "@angular/cli": "1.4.9",
     "@angular/compiler-cli": "^4.2.4",
     "@angular/language-service": "^4.2.4",
@@ -57,7 +55,7 @@
   "devDependencies": {
   },
   "engines": {
-    "node": "8.1.0",
+    "node": "8.7.0",
     "npm": "5.5.1"
   }
 }
