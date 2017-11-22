@@ -1,9 +1,11 @@
+import { Lancamento } from './../model';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { LogoutService } from './../../seguranca/logout.service';
 import { ErrorHandlerService } from './../error-handler.service';
 import { AuthService } from './../../seguranca/auth.service';
+import { MenuItem } from 'primeng/components/common/menuitem';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +14,7 @@ import { AuthService } from './../../seguranca/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  exibindoMenu = false;
+  items: MenuItem[];
 
   constructor(
     public auth: AuthService,
@@ -22,6 +24,32 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.items = [
+      {
+        label: 'Opções',
+        items: [
+          {
+            label: 'Lançamentos',
+            routerLink: '/lancamentos',
+            visible: this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')
+          },
+          {
+            label: 'Pessoas',
+            routerLink: '/pessoas',
+            visible: this.auth.temPermissao('ROLE_PESQUISAR_PESSOA')
+          },
+          {
+            label: 'Mapas',
+            routerLink: '/geo',
+            visible: this.auth.temPermissao('ROLE_PESQUISAR_MAPA')
+          },
+        ]
+      }
+    ];
+  }
+
+  temPermissao(menu: string): boolean {
+    return this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO');
   }
 
   logout() {

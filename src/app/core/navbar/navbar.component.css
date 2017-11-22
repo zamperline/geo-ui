@@ -1,17 +1,20 @@
+
+
 .navbar {
-  padding: 10px 0;
-  background-color: #1e94d2;
+  padding: 0;
+  margin:0;
+  /* background-color: #1e94d2; */
 }
 
 .navbar-toggle {
-  color: #fff;
+  color: #1e94d2;
 }
 
 .navbar-menu {
   position: fixed;
   top: 0;
   bottom: 0;
-  right: 0;
+  left: 0;
   width: 210px;
   margin: 0;
   padding: 0;

@@ -30,3 +30,14 @@ export class Lancamento {
   pessoa = new Pessoa();
   categoria = new Categoria();
 }
+
+export class Geo {
+  id: number;
+}
+
+export class Bounds {
+  lng1: string;
+  lat1: string;
+  lng2: string;
+  lat2: string;
+}

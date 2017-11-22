@@ -1,0 +1,46 @@
+<div class="containerMapa">
+  <div class="ui-g">
+    <div class="ui-g-2">
+        <p-accordion>
+          <p-accordionTab header="ZONEAMENTO">
+            Content 1
+          </p-accordionTab>
+          <p-accordionTab header="LOTES">
+              <strong>{{infowinMsg[0]}}</strong>
+              <p>{{infowinMsg[1]}}</p>
+              <p>{{infowinMsg[2]}}</p>
+              <p><a href="javascript:;" (click)="showDialog();">Mais</a></p>
+          </p-accordionTab>
+        </p-accordion>
+    </div>
+    <div class="ui-g-10">
+        <agm-map #map
+        (mapReady)="onMapReady($event)"
+        (zoomChange)="zoomChange($event)"
+        (idle)="viewBoundsChanged($event)"
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="zoom"
+        [streetViewControl]="true"
+        [mapTypeControl]="true"
+        [fullscreenControl]="true"
+        [scrollwheel]="true"
+        [disableDoubleClickZoom]="true"
+        >
+          <agm-data-layer *ngIf="geoJsonObject"
+            [geoJson]="geoJsonObject"
+            (layerClick)="clicked($event)"
+            [style]="loteStyle">
+          </agm-data-layer>
+          <agm-marker [latitude]="infowinLat" [longitude]="infowinLng"></agm-marker>
+        </agm-map>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Title" [(visible)]="display" [responsive]="true" modal="modal">
+    <strong>{{infowinMsg[0]}}</strong>
+    <p>{{infowinMsg[1]}}</p>
+    <p>{{infowinMsg[2]}}</p>
+    <p><a href="javascript:;" (click)="showDialog();">Mais</a></p>
+</p-dialog>

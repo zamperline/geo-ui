@@ -1,3 +1,4 @@
+import { GeoService } from './../geo/geo.service';
 import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -6,6 +7,7 @@ import { CommonModule } from '@angular/common';
 
 import { ConfirmationService } from 'primeng/components/common/api';
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
+import { MenubarModule } from 'primeng/components/menubar/menubar';
 import { ToastyModule } from 'ng2-toasty';
 import { JwtHelper } from 'angular2-jwt';
 
@@ -23,9 +25,9 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     CommonModule,
     HttpModule,
     RouterModule,
-
     ToastyModule.forRoot(),
     ConfirmDialogModule,
+    MenubarModule,
   ],
   declarations: [
     NavbarComponent,
@@ -43,6 +45,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     CategoriaService,
     ErrorHandlerService,
     AuthService,
+    GeoService,
 
     ConfirmationService,
     JwtHelper,
