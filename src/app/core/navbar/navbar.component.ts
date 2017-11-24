@@ -28,11 +28,11 @@ export class NavbarComponent implements OnInit {
       {
         label: 'Opções',
         items: [
-          {
-            label: 'Lançamentos',
-            routerLink: '/lancamentos',
-            visible: this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')
-          },
+          // {
+          //   label: 'Lançamentos',
+          //   routerLink: '/lancamentos',
+          //   visible: this.auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')
+          // },
           {
             label: 'Pessoas',
             routerLink: '/pessoas',

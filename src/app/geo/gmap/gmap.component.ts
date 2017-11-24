@@ -8,6 +8,7 @@ import { ErrorHandlerService } from './../../core/error-handler.service';
 import { GeoService, MapaFiltro } from './../geo.service';
 import { Bounds } from './../../core/model';
 import { AuthService } from '../../seguranca/auth.service';
+import { LatLngLiteral } from '@agm/core/services/google-maps-types';
 
 declare var google: any;
 
@@ -28,13 +29,21 @@ export class GmapComponent implements OnInit {
   bounds = new Bounds();
   lat: Number = -23.552011;
   lng: Number = -51.460635;
-  zoom: Number = 17;
+  zoom: Number = 15;
   map: any;
   geoJsonObject: Object;
   @ViewChild('map') m: ElementRef;
   @ViewChild('infoWindow') infoWindow: ElementRef;
-  display: Boolean = false;
-  mapTypeId: String = 'terrain';
+  display: Boolean = true;
+  paths: Array<LatLngLiteral> = [{ lat: -23.552011, lng: -51.460635 }];
+  mostrarPoligono: Boolean = false;
+  mapStyle: object = [
+    {
+      'featureType': 'poi',
+      'elementType': 'all',
+      'stylers': [{ visibility: 'off' }]
+    }
+  ];
 
   constructor(
     private geoService: GeoService,
@@ -69,22 +78,24 @@ export class GmapComponent implements OnInit {
     this.lat = center.toJSON().lat;
     this.lng = center.toJSON().lng;
 
-    if (zoom >= 17) {
+    if (zoom >= 18) {
       this.filtro.bounds = this.bounds;
       this.filtro.latCenter = center.toJSON().lat;
       this.filtro.lngCenter = center.toJSON().lng;
       this.getGeoJSON();
-    } else if (zoom < 17) {
+    } else if (zoom < 18) {
       this.geoJsonObject = null;
     }
   }
 
   getGeoJSON() {
-    this.geoService.getGeoJson(this.filtro)
-      .then(resultado => {
-        this.geoJsonObject = resultado.geoJson;
-      })
-      .catch(erro => this.errorHandler.handle(erro));
+    if (this.filtro.opcao > -1) {
+      this.geoService.getGeoJson(this.filtro)
+        .then(resultado => {
+          this.geoJsonObject = resultado.geoJson;
+        })
+        .catch(erro => this.errorHandler.handle(erro));
+    }
   }
 
   public zoomChange() {
@@ -95,10 +106,46 @@ export class GmapComponent implements OnInit {
     this.infowinLng = clickEvent.feature.getProperty('lng');
     this.infowinLat = clickEvent.feature.getProperty('lat');
     this.infowinLng = clickEvent.feature.getProperty('lng');
-    this.infowinMsg[0] = clickEvent.feature.getProperty('Id');
-    this.infowinMsg[1] = clickEvent.feature.getProperty('Inscrição');
-    this.infowinMsg[2] = clickEvent.feature.getProperty('Situação');
     this.infowinIsOpen = true;
+    if (this.filtro.opcao === 0) {
+      this.setPropertyZoneamentoClicado(clickEvent);
+    } else if (this.filtro.opcao === 1) {
+      this.setPropertyLoteClicado(clickEvent);
+    }
+    this.paths = clickEvent.feature.b.b[0].b;
+    this.mostrarPoligono = true;
+  }
+
+  setPropertyLoteClicado(clickEvent) {
+    this.infowinMsg['ins'] = clickEvent.feature.getProperty('Inscrição');
+    this.infowinMsg['qua'] = clickEvent.feature.getProperty('Quadra');
+    this.infowinMsg['lot'] = clickEvent.feature.getProperty('Lote');
+    this.infowinMsg['log'] = clickEvent.feature.getProperty('Logradouro');
+    this.infowinMsg['num'] = clickEvent.feature.getProperty('Número');
+    this.infowinMsg['bai'] = clickEvent.feature.getProperty('Bairro');
+    this.infowinMsg['pro'] = clickEvent.feature.getProperty('Proprietário');
+  }
+
+  setPropertyZoneamentoClicado(clickEvent) {
+    this.infowinMsg['zon'] = clickEvent.feature.getProperty('Zoneamento');
+    this.infowinMsg['des'] = clickEvent.feature.getProperty('Descrição');
+    this.infowinMsg['cor'] = clickEvent.feature.getProperty('fill');
+  }
+
+  onTabClose(event) {
+    this.filtro.opcao = -1;
+    this.geoJsonObject = null;
+    this.mostrarPoligono = false;
+    this.zoom = 18;
+    this.viewBoundsChanged();
+  }
+
+  onTabOpen(event) {
+    this.geoJsonObject = null;
+    this.zoom = 18;
+    this.filtro.opcao = event.index;
+    this.mostrarPoligono = false;
+    this.viewBoundsChanged();
   }
 
   loteStyle(feature) {

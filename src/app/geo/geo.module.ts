@@ -5,6 +5,8 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import {AccordionModule} from 'primeng/components/accordion/accordion';
 import {DialogModule} from 'primeng/components/dialog/dialog';
+import {ButtonModule} from 'primeng/components/button/button';
+import {ToolbarModule} from 'primeng/components/toolbar/toolbar';
 
 import { SharedModule } from './../shared/shared.module';
 import { GeoRoutingModule } from './geo-routing.module';
@@ -20,6 +22,8 @@ import { GmapComponent } from './gmap/gmap.component';
     AgmSnazzyInfoWindowModule,
     DialogModule,
     AccordionModule,
+    ButtonModule,
+    ToolbarModule,
 
     SharedModule,
     GeoRoutingModule

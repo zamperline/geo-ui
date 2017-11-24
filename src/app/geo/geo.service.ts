@@ -13,6 +13,7 @@ import { Bounds } from '../core/model';
     bounds = new Bounds();
     latCenter: string;
     lngCenter: string;
+    opcao: Number = -1;
   }
 
   @Injectable()
@@ -43,6 +44,10 @@ import { Bounds } from '../core/model';
       }
       if (filtro.lngCenter) {
         params.set('lngCenter', filtro.lngCenter);
+      }
+      if (filtro.opcao > -1) {
+        params.set('opcao', filtro.opcao.toString());
+        console.log('string: ' + filtro.opcao.toString());
       }
 
       return this.http.get(`${this.mapaUrl}`, { search: params })
