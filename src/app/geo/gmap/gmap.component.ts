@@ -67,7 +67,7 @@ export class GmapComponent implements OnInit {
     this.display = true;
   }
 
-  public viewBoundsChanged(event) {
+  public viewBoundsChanged() {
     this.bounds.lat1 = this.map.getBounds().getSouthWest().lat();
     this.bounds.lng1 = this.map.getBounds().getSouthWest().lng();
     this.bounds.lat2 = this.map.getBounds().getNorthEast().lat();

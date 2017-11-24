@@ -10,7 +10,7 @@
           <agm-map #map
           (mapReady)="onMapReady($event)"
           (zoomChange)="zoomChange($event)"
-          (idle)="viewBoundsChanged($event)"
+          (idle)="viewBoundsChanged()"
           [latitude]="lat"
           [longitude]="lng"
           [zoom]="zoom"
