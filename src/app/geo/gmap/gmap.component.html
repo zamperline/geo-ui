@@ -34,7 +34,7 @@
     </div>
   </div>
 
-  <p-dialog #dialog [(visible)]="display" header="CAMADAS" [showHeader]="true" [appendTo]="body" [width]="472" [positionLeft]="2" [positionTop]="47" styleClass="dialog-mapa">
+  <p-dialog #dialog [(visible)]="display" header="CAMADAS" [showHeader]="true" [width]="472" [positionLeft]="2" [positionTop]="47" styleClass="dialog-mapa">
     <p-accordion (onClose)="onTabClose($event)" (onOpen)="onTabOpen($event)">
       <p-accordionTab header="ZONEAMENTO">
         <div class="ui-g" *ngIf="mostrarPoligono">
