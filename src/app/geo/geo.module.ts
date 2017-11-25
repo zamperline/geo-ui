@@ -17,7 +17,7 @@ import { GmapComponent } from './gmap/gmap.component';
   imports: [
     CommonModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCuF0jO6w-aCgx7P28epp7zKGbNJwjlw6g'
+      apiKey: 'RAIzaSyCuF0jO6w-aCgx7P28epp7zKGbNJwjlw6gl'
     }),
     AgmSnazzyInfoWindowModule,
     DialogModule,
